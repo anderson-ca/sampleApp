@@ -32,6 +32,11 @@ app.get('/', (req, res) => { // -> index page route
     title: 'Index Page'
   })
 });
+app.get('/about', (req, res) => { // -> about page route
+  res.render('about', {
+    title: 'About Page'
+  });
+})
 ////////////////////////////////////////////////////////////
 // -> tell the app to listen to specified port on localhost
 ////////////////////////////////////////////////////////////
