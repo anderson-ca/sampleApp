@@ -3,8 +3,16 @@
 //////////////////////////////////////
 const express = require('express'); // -> import the express library
 const exphbs = require('express-handlebars');
-/////////////////////////////////////
+const mongoose = require('mongoose');
 
+
+//////////////////////////
+// -> connect to mongoose
+//////////////////////////
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/sampleApp').then(() => {
+  console.log('connected to mongodb...');
+}).catch((err) => console.log(err));
 
 const app = express(); // -> use the initializer express function and assign it to app variable
 
