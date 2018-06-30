@@ -4,7 +4,8 @@
 const express = require('express'); // -> import the express library
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
-
+require('./models/Idea');
+const Idea = mongoose.models('ideas');
 
 //////////////////////////
 // -> connect to mongoose
