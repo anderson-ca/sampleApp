@@ -4,8 +4,12 @@
 const express = require('express'); // -> import the express library
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+
+///////////////////////////////////
+// -> connect to idea model Schema
+////////////////////////////////////
 require('./models/Idea');
-const Idea = mongoose.models('ideas');
+const Idea = mongoose.model('ideas');
 
 //////////////////////////
 // -> connect to mongoose
@@ -45,6 +49,14 @@ app.get('/about', (req, res) => { // -> about page route
   res.render('about', {
     title: 'About Page'
   });
+})
+app.get('/ideas/add', (req, res) => { // -> add ideas form
+  res.render('ideas/add', {
+    title: 'Add Ideas Page'
+  });
+});
+app.post('/ideas', (req, res) => { // -> process add ideas form
+  
 })
 ////////////////////////////////////////////////////////////
 // -> tell the app to listen to specified port on localhost
