@@ -26,12 +26,27 @@ mongoose.connect('mongodb://localhost/sampleApp').then(() => {
 const app = express(); // -> use the initializer express function and assign it to app variable
 
 const port = process.env.PORT || 5000; // -> declare port
+/////////////////////////////////
+// -> express session middleware
+/////////////////////////////////
+app.use(session({
+  secret: 'segredo',
+  resave: true,
+  saveUninitialized: true
+}));
 
+app.use(flash());
 /////////////////////////
 // -> express middleware
 /////////////////////////
 app.use((req, res, next) => { // -> time stamp middleware
   console.log('Time stamp: ' + Date.now());
+  next();
+});
+app.use(function (req, res, next) { // -> set up global variables
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   next();
 });
 ///////////////////////////
@@ -90,7 +105,7 @@ app.get('/ideas/:id', (req, res) => { // -> display edit form page with edit inf
     });
   });
 });
-app.post('/ideas', (req, res) => { // -> process add ideas form
+app.post('/ideas', (req, res) => { // -> proccess add ideas form
   let err = [];
 
   if (!req.body.title) {
@@ -118,6 +133,7 @@ app.post('/ideas', (req, res) => { // -> process add ideas form
     new Idea(newUser)
       .save()
       .then(idea => {
+        req.flash('success_msg', 'video added');
         res.redirect('/ideas');
       })
       .catch();
@@ -135,12 +151,19 @@ app.put('/ideas/:id', (req, res) => { //  -> persist updated data to collection
     });
   });
 });
-app.delete('/ideas/:id', (req, res) => {
+app.delete('/ideas/:id', (req, res) => { // -> delete idea
   Idea.remove({
     _id: req.params.id
   }).then(idea => {
+    req.flash('success_msg', 'idea successfully deleted');
     res.redirect('/ideas');
   });
+});
+app.get('/users/login', (req, res) => {
+  res.send('login page');
+});
+app.get('/users/register', (req, res) => {
+  res.send('register page');
 });
 ////////////////////////////////////////////////////////////
 // -> tell the app to listen to specified port on localhost
