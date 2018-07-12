@@ -10,9 +10,10 @@ const flash = require('connect-flash');
 const session = require('express-session');
 
 /////////////////////////
-// -> import idea routes
+// -> import idea/user routes
 /////////////////////////
 const ideas = require('./routes/ideas');
+cosnt users = require('./routes/users');
 //////////////////////////
 // -> connect to mongoose
 //////////////////////////
@@ -76,12 +77,6 @@ app.get('/about', (req, res) => { // -> about page route
     title: 'About Page'
   });
 })
-app.get('/users/login', (req, res) => {
-  res.send('login page');
-});
-app.get('/users/register', (req, res) => {
-  res.send('register page');
-});
 ////////////////////////////////////////////////
 // -> redirect to ideas file containing routes
 ////////////////////////////////////////////////
