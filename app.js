@@ -13,7 +13,7 @@ const session = require('express-session');
 // -> import idea/user routes
 /////////////////////////
 const ideas = require('./routes/ideas');
-cosnt users = require('./routes/users');
+const users = require('./routes/users');
 //////////////////////////
 // -> connect to mongoose
 //////////////////////////
@@ -67,6 +67,9 @@ app.use(bodyParser.json());
 //////////////////////////////////
 app.use(methodOverride('_method'));
 
+//////////////////////////////
+// -> index and about routes
+/////////////////////////////
 app.get('/', (req, res) => { // -> index page route
   res.render('index', {
     title: 'Index Page'
@@ -77,10 +80,11 @@ app.get('/about', (req, res) => { // -> about page route
     title: 'About Page'
   });
 })
-////////////////////////////////////////////////
-// -> redirect to ideas file containing routes
-////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+// -> redirect to ideas/users file containing routes
+/////////////////////////////////////////////////////
 app.use('/ideas', ideas);
+app.use('/users', users);
 ////////////////////////////////////////////////////////////
 // -> tell the app to listen to specified port on localhost
 ////////////////////////////////////////////////////////////
