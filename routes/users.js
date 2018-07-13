@@ -11,7 +11,7 @@ const router = express.Router();
 // -> create routes
 /////////////////////
 router.get('/login', (req, res) => {
-  res.send('login page');
+  res.render('users/login');
 });
 router.get('/register', (req, res) => {
   res.send('register page');
