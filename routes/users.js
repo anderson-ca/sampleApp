@@ -14,7 +14,7 @@ router.get('/login', (req, res) => {
   res.render('users/login');
 });
 router.get('/register', (req, res) => {
-  res.send('register page');
+  res.render('users/register');
 });
 //////////////////////////////////////
 // -> export libraries (dependencies)
