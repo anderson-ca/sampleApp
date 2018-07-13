@@ -8,6 +8,7 @@ const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const path = require('path');
 
 /////////////////////////
 // -> import idea/user routes
@@ -62,6 +63,10 @@ app.use(bodyParser.urlencoded({
   extended: false
 }))
 app.use(bodyParser.json());
+/////////////////////////////////////////
+// -> express middleware (static folder)
+/////////////////////////////////////////
+app.use(express.static(path.join('__dirname' + '/public')));
 //////////////////////////////////
 // -> method override middleware
 //////////////////////////////////
