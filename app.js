@@ -15,6 +15,10 @@ const path = require('path');
 /////////////////////////
 const ideas = require('./routes/ideas');
 const users = require('./routes/users');
+////////////////////////////
+// -> import pasport config
+////////////////////////////
+require('./config/passport');
 //////////////////////////
 // -> connect to mongoose
 //////////////////////////
