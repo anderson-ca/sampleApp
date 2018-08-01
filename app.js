@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
 const path = require('path');
+const passport = require('passport')
 
 /////////////////////////
 // -> import idea/user routes
@@ -18,7 +19,7 @@ const users = require('./routes/users');
 ////////////////////////////////////
 // -> import pasport to config file
 ////////////////////////////////////
-require('./config/passport');
+require('./config/passport')(passport);
 //////////////////////////
 // -> connect to mongoose
 //////////////////////////

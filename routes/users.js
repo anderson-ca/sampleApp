@@ -21,11 +21,11 @@ router.get('/register', (req, res) => { // -> user registration page
   res.render('users/register');
 });
 router.post('/login', (req, res, next) => { // -> login user
-  passport.authenticate('local', ({
-    successRedirect: '/',
+  passport.authenticate('local', {
+    successRedirect: '/ideas',
     failureRedirect: '/login',
     failureFlash: true
-  }))(req, res, next);
+  })(req, res, next);
 });
 router.post('/register', (req, res) => { // -> persist new user data to collection
   let err = [];
