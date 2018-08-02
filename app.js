@@ -41,6 +41,11 @@ app.use(session({
 }));
 
 app.use(flash());
+//////////////////////////
+// -> passport middleware
+//////////////////////////
+app.use(passport.initialize());
+app.use(passport.session());
 /////////////////////////
 // -> express middleware
 /////////////////////////
@@ -52,6 +57,7 @@ app.use(function (req, res, next) { // -> set up global variables
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  res.locals.user = req.user;
   next();
 });
 ///////////////////////////
