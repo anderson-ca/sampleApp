@@ -84,6 +84,11 @@ router.post('/register', (req, res) => { // -> persist new user data to collecti
   }
 
 });
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'you are now logged out');
+  res.redirect('/users/login');
+});
 //////////////////////////////////////
 // -> export libraries (dependencies)
 //////////////////////////////////////
