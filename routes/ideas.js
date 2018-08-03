@@ -4,6 +4,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router()
+const {ensureAuthentication} = require('../helper/auth');
 ///////////////////////////////////
 // -> connect to idea model Schema
 ///////////////////////////////////
@@ -12,7 +13,7 @@ const Idea = mongoose.model('ideas');
 /////////////////////
 // -> create routes
 /////////////////////
-router.get('/', (req, res) => { // -> ideas index page
+router.get('/', ensureAuthentication, (req, res) => { // -> ideas index page
   Idea.find({})
     .sort({
       date: 'desc'
@@ -23,12 +24,12 @@ router.get('/', (req, res) => { // -> ideas index page
       })
     });
 });
-router.get('/add', (req, res) => { // -> add ideas form
+router.get('/add', ensureAuthentication, (req, res) => { // -> add ideas form
   res.render('ideas/add', {
     title: 'Add Ideas Page'
   });
 });
-router.get('/edit/:id', (req, res) => { // -> display edit form page with edit info
+router.get('/edit/:id', ensureAuthentication, (req, res) => { // -> display edit form page with edit info
   Idea.findOne({
     _id: req.params.id
   }).then((idea) => {
@@ -37,7 +38,7 @@ router.get('/edit/:id', (req, res) => { // -> display edit form page with edit i
     });
   });
 });
-router.post('/', (req, res) => { // -> proccess add ideas form
+router.post('/', ensureAuthentication, (req, res) => { // -> proccess add ideas form
   let err = [];
 
   if (!req.body.title) {
@@ -71,7 +72,7 @@ router.post('/', (req, res) => { // -> proccess add ideas form
       .catch();
   }
 });
-router.put('/:id', (req, res) => { //  -> persist updated data to collection
+router.put('/:id', ensureAuthentication, (req, res) => { //  -> persist updated data to collection
   Idea.findOne({
     _id: req.params.id
   }).then((idea) => {
@@ -83,7 +84,7 @@ router.put('/:id', (req, res) => { //  -> persist updated data to collection
     });
   });
 });
-router.delete('/:id', (req, res) => { // -> delete idea
+router.delete('/:id', ensureAuthentication, (req, res) => { // -> delete idea
   Idea.remove({
     _id: req.params.id
   }).then(idea => {
