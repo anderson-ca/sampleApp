@@ -14,7 +14,7 @@ const Idea = mongoose.model('ideas');
 // -> create routes
 /////////////////////
 router.get('/', ensureAuthentication, (req, res) => { // -> ideas index page
-  Idea.find({})
+  Idea.find({user: req.user.id})
     .sort({
       date: 'desc'
     })
@@ -58,12 +58,13 @@ router.post('/', ensureAuthentication, (req, res) => { // -> proccess add ideas 
       body: req.body.body
     })
   } else {
-    let newUser = {
+    let newIdea = {
       title: req.body.title,
-      body: req.body.body
+      body: req.body.body,
+      user: req.user.id
     }
 
-    new Idea(newUser)
+    new Idea(newIdea)
       .save()
       .then(idea => {
         req.flash('success_msg', 'video added');
