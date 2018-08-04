@@ -33,9 +33,14 @@ router.get('/edit/:id', ensureAuthentication, (req, res) => { // -> display edit
   Idea.findOne({
     _id: req.params.id
   }).then((idea) => {
-    res.render('ideas/edit', {
-      idea
-    });
+    if(req.user.id !== idea.user) {
+      req.flash('error_mgs', 'Not authorized');
+      res.redirect('/ideas');
+    } else {
+      res.render('ideas/edit', {
+        idea
+      });
+    }
   });
 });
 router.post('/', ensureAuthentication, (req, res) => { // -> proccess add ideas form
